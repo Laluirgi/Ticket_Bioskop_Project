@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilih Kursi - CinemaTix</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    background:#0F172A;
+    color:white;
+}
+
+.navbar{
+    background:#1E293B;
+}
+
+.navbar-brand{
+    color:#FBBF24 !important;
+    font-weight:bold;
+}
+
+.screen{
+    width:100%;
+    height:70px;
+    background:white;
+    color:black;
+    text-align:center;
+    line-height:70px;
+    font-weight:bold;
+    border-radius:10px;
+    margin-bottom:40px;
+}
+
+.seat{
+    width:50px;
+    height:50px;
+    margin:5px;
+    border:none;
+    border-radius:10px;
+    color:white;
+    font-weight:bold;
+}
+
+.available{
+    background:#10B981;
+}
+
+.booked{
+    background:#EF4444;
+    cursor:not-allowed;
+}
+
+.selected{
+    background:#3B82F6;
+}
+
+.legend-box{
+    width:20px;
+    height:20px;
+    border-radius:5px;
+    display:inline-block;
+    margin-right:5px;
+}
+
+.info-card{
+    background:#1E293B;
+    border-radius:15px;
+    padding:20px;
+}
+
+.btn-checkout{
+    background:#FBBF24;
+    color:black;
+    font-weight:bold;
+}
+
+.movie-info{
+    background:#1E293B;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+</style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="../index.html">
+            🎬 CinemaTix
+        </a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <!-- INFO FILM -->
+
+    <div class="movie-info">
+
+        <h3 id="filmTitle">
+            Film
+        </h3>
+
+        <p>
+            <strong>Studio :</strong>
+            <span id="studioText"></span>
+        </p>
+
+        <p>
+            <strong>Tanggal :</strong>
+            <span id="tanggalText"></span>
+        </p>
+
+        <p>
+            <strong>Jam :</strong>
+            <span id="jamText"></span>
+        </p>
+
+    </div>
+
+    <h2 class="text-center mb-4">
+        Pilih Kursi
+    </h2>
+
+    <div class="screen">
+        SCREEN
+    </div>
+
+    <div class="text-center">
+
+        <!-- BARIS A -->
+
+        <div>
+            <button class="seat available">A1</button>
+            <button class="seat available">A2</button>
+            <button class="seat available">A3</button>
+            <button class="seat booked">A4</button>
+            <button class="seat available">A5</button>
+            <button class="seat available">A6</button>
+        </div>
+
+        <!-- BARIS B -->
+
+        <div>
+            <button class="seat available">B1</button>
+            <button class="seat booked">B2</button>
+            <button class="seat available">B3</button>
+            <button class="seat available">B4</button>
+            <button class="seat available">B5</button>
+            <button class="seat available">B6</button>
+        </div>
+
+        <!-- BARIS C -->
+
+        <div>
+            <button class="seat available">C1</button>
+            <button class="seat available">C2</button>
+            <button class="seat available">C3</button>
+            <button class="seat available">C4</button>
+            <button class="seat booked">C5</button>
+            <button class="seat available">C6</button>
+        </div>
+
+        <!-- BARIS D -->
+
+        <div>
+            <button class="seat available">D1</button>
+            <button class="seat available">D2</button>
+            <button class="seat available">D3</button>
+            <button class="seat available">D4</button>
+            <button class="seat available">D5</button>
+            <button class="seat available">D6</button>
+        </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+
+        <span class="legend-box bg-success"></span>
+        Available
+
+        <span class="legend-box bg-danger ms-4"></span>
+        Booked
+
+        <span class="legend-box bg-primary ms-4"></span>
+        Selected
+
+    </div>
+
+    <div class="row justify-content-center mt-5">
+
+        <div class="col-md-5">
+
+            <div class="info-card">
+
+                <h4>Detail Pemesanan</h4>
+
+                <hr>
+
+                <p>
+                    Kursi Dipilih :
+                    <span id="selectedSeat">-</span>
+                </p>
+
+                <p>
+                    Harga :
+                    Rp <span id="price">0</span>
+                </p>
+
+                <button
+                    id="checkoutBtn"
+                    class="btn btn-checkout w-100">
+                    Checkout
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const film =
+    params.get("film") || "Film Belum Dipilih";
+
+const studio =
+    params.get("studio") || "Studio 1";
+
+const tanggal =
+    params.get("tanggal") || "24 Juni 2026";
+
+const jam =
+    params.get("jam") || "19:00";
+
+document.getElementById("filmTitle").innerText = film;
+document.getElementById("studioText").innerText = studio;
+document.getElementById("tanggalText").innerText = tanggal;
+document.getElementById("jamText").innerText = jam;
+
+const seats = document.querySelectorAll(".available");
+
+const selectedSeat =
+    document.getElementById("selectedSeat");
+
+const price =
+    document.getElementById("price");
+
+let selected = [];
+
+seats.forEach(seat => {
+
+    seat.addEventListener("click", () => {
+
+        seat.classList.toggle("selected");
+
+        const seatNumber = seat.innerText;
+
+        if(selected.includes(seatNumber)){
+
+            selected =
+            selected.filter(s => s !== seatNumber);
+
+        }else{
+
+            selected.push(seatNumber);
+
+        }
+
+        selectedSeat.innerText =
+        selected.join(", ");
+
+        price.innerText =
+        (selected.length * 50000).toLocaleString("id-ID");
+
+    });
+
+});
+
+document.getElementById("checkoutBtn")
+.addEventListener("click", () => {
+
+    if(selected.length === 0){
+
+        alert("Pilih kursi terlebih dahulu!");
+
+        return;
+    }
+
+    const kursi = selected.join(",");
+
+    window.location.href =
+    `checkout.html?film=${encodeURIComponent(film)}&studio=${encodeURIComponent(studio)}&tanggal=${encodeURIComponent(tanggal)}&jam=${encodeURIComponent(jam)}&kursi=${encodeURIComponent(kursi)}&harga=${selected.length * 50000}`;
+
+});
+
+</script>
+
+</body>
+</html>
