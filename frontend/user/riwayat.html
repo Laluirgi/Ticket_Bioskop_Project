@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riwayat Pemesanan - CinemaTix</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    background:#0F172A;
+    color:white;
+}
+
+.navbar{
+    background:#1E293B;
+}
+
+.navbar-brand{
+    color:#FBBF24 !important;
+    font-weight:bold;
+}
+
+.history-card{
+    background:#1E293B;
+    border-radius:20px;
+    padding:30px;
+}
+
+.stat-card{
+    background:#1E293B;
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+}
+
+.stat-number{
+    color:#FBBF24;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.table{
+    color:white;
+}
+
+.table-dark{
+    background:#0F172A;
+}
+
+footer{
+    background:#1E293B;
+    padding:20px;
+    margin-top:50px;
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+        <a class="navbar-brand" href="../index.html">
+            🎬 CinemaTix
+        </a>
+
+        <div class="ms-auto">
+
+            <a href="dashboard.html"
+               class="btn btn-outline-light me-2">
+                Dashboard
+            </a>
+
+            <a href="profil.html"
+               class="btn btn-warning">
+                Profil
+            </a>
+
+        </div>
+
+    </div>
+</nav>
+
+<!-- STATISTIK -->
+
+<div class="container mt-5">
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <div class="stat-card">
+
+                <div class="stat-number">
+                    3
+                </div>
+
+                <p>Total Transaksi</p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="stat-card">
+
+                <div class="stat-number">
+                    Rp150.000
+                </div>
+
+                <p>Total Pengeluaran</p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="stat-card">
+
+                <div class="stat-number">
+                    3
+                </div>
+
+                <p>Film Ditonton</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- RIWAYAT -->
+
+<div class="container mt-4">
+
+    <div class="history-card">
+
+        <h2 class="text-warning mb-4">
+            📜 Riwayat Pemesanan
+        </h2>
+
+        <div class="table-responsive">
+
+            <table class="table table-dark table-hover align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Film</th>
+                        <th>Tanggal</th>
+                        <th>Jam</th>
+                        <th>Kursi</th>
+                        <th>Pembayaran</th>
+                        <th>Total</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>ORD001</td>
+                        <td>Spider-Man Brand New Day</td>
+                        <td>24 Juni 2026</td>
+                        <td>19:00</td>
+                        <td>A5</td>
+                        <td>QRIS</td>
+                        <td>Rp50.000</td>
+
+                        <td>
+                            <span class="badge bg-success">
+                                Selesai
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>ORD002</td>
+                        <td>Minions & Monsters</td>
+                        <td>22 Juni 2026</td>
+                        <td>15:30</td>
+                        <td>B2</td>
+                        <td>E-Wallet</td>
+                        <td>Rp50.000</td>
+
+                        <td>
+                            <span class="badge bg-success">
+                                Selesai
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>ORD003</td>
+                        <td>Avengers: Doomsday</td>
+                        <td>20 Juni 2026</td>
+                        <td>18:00</td>
+                        <td>C3</td>
+                        <td>Transfer Bank</td>
+                        <td>Rp50.000</td>
+
+                        <td>
+                            <span class="badge bg-success">
+                                Selesai
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer class="text-center">
+
+    <h5>CinemaTix</h5>
+    
+</footer>
+
+</body>
+</html>
