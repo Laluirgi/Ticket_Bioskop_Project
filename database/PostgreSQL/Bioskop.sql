@@ -13,12 +13,6 @@ CREATE TABLE tb_film (
     durasi INT,
     rating_usia VARCHAR(10)
 );
-CREATE TABLE tb_admin (
-    id_admin VARCHAR(50) PRIMARY KEY,
-    nama_admin VARCHAR(100) NOT NULL,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL
-);
 CREATE TABLE tb_studio (
     id_studio VARCHAR(50) PRIMARY KEY,
     nama_studio VARCHAR(50) NOT NULL,
@@ -29,14 +23,6 @@ CREATE TABLE tb_kursi (
     id_kursi VARCHAR(50) PRIMARY KEY,
     id_studio VARCHAR(50) REFERENCES tb_studio(id_studio),
     nomor_kursi VARCHAR(10) NOT NULL
-);
-CREATE TABLE tb_produk (
-    id_produk VARCHAR(50) PRIMARY KEY,
-    nama_produk VARCHAR(100) NOT NULL,
-    kategori VARCHAR(50),
-    harga DECIMAL(10, 2),
-    stok INT,
-    id_admin VARCHAR(50) REFERENCES tb_admin(id_admin)
 );
 CREATE TABLE tb_jadwal (
     id_jadwal VARCHAR(50) PRIMARY KEY,
@@ -71,11 +57,4 @@ CREATE TABLE tb_tiket (
     tanggal_cetak TIMESTAMP,
     harga DECIMAL(10, 2),
     status VARCHAR(20)
-);
-CREATE TABLE tb_detail_produk (
-    id_detail VARCHAR(50) PRIMARY KEY,
-    id_pemesanan VARCHAR(50) REFERENCES tb_pemesanan(id_pemesanan),
-    id_produk VARCHAR(50) REFERENCES tb_produk(id_produk),
-    qty INT,
-    subtotal DECIMAL(10, 2)
 );
