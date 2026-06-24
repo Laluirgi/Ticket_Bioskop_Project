@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - CinemaTix</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    background:#0F172A;
+    color:white;
+}
+
+.navbar{
+    background:#1E293B;
+}
+
+.navbar-brand{
+    color:#FBBF24 !important;
+    font-weight:bold;
+}
+
+.checkout-card{
+    background:#1E293B;
+    border-radius:15px;
+    padding:30px;
+    box-shadow:0 0 20px rgba(0,0,0,.4);
+}
+
+.btn-pay{
+    background:#FBBF24;
+    color:black;
+    font-weight:bold;
+}
+
+.btn-pay:hover{
+    background:#f59e0b;
+}
+
+</style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="../index.html">
+            🎬 CinemaTix
+        </a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="checkout-card">
+
+                <h2>🎟 Checkout Tiket</h2>
+
+                <hr>
+
+                <p>
+                    <strong>Film :</strong>
+                    <span id="filmName"></span>
+                </p>
+
+                <p>
+                    <strong>Studio :</strong>
+                    <span id="studioName"></span>
+                </p>
+
+                <p>
+                    <strong>Tanggal :</strong>
+                    <span id="tanggalFilm"></span>
+                </p>
+
+                <p>
+                    <strong>Jam :</strong>
+                    <span id="jamFilm"></span>
+                </p>
+
+                <p>
+                    <strong>Kursi :</strong>
+                    <span id="seatNumber"></span>
+                </p>
+
+                <p>
+                    <strong>Harga :</strong>
+                    Rp <span id="hargaTiket"></span>
+                </p>
+
+                <hr>
+
+                <h5>Metode Pembayaran</h5>
+
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="payment"
+                           value="QRIS">
+
+                    <label class="form-check-label">
+                        QRIS
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="payment"
+                           value="Transfer Bank">
+
+                    <label class="form-check-label">
+                        Transfer Bank
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="payment"
+                           value="E-Wallet">
+
+                    <label class="form-check-label">
+                        E-Wallet
+                    </label>
+                </div>
+
+                <button
+                    id="payBtn"
+                    class="btn btn-pay w-100 mt-4">
+                    Bayar Sekarang
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const film =
+    params.get("film") || "-";
+
+const studio =
+    params.get("studio") || "-";
+
+const tanggal =
+    params.get("tanggal") || "-";
+
+const jam =
+    params.get("jam") || "-";
+
+const kursi =
+    params.get("kursi") || "-";
+
+const harga =
+    params.get("harga") || "0";
+
+document.getElementById("filmName").innerText =
+film;
+
+document.getElementById("studioName").innerText =
+studio;
+
+document.getElementById("tanggalFilm").innerText =
+tanggal;
+
+document.getElementById("jamFilm").innerText =
+jam;
+
+document.getElementById("seatNumber").innerText =
+kursi;
+
+document.getElementById("hargaTiket").innerText =
+Number(harga).toLocaleString("id-ID");
+
+document.getElementById("payBtn")
+.addEventListener("click", () => {
+
+    const payment =
+    document.querySelector(
+        'input[name="payment"]:checked'
+    );
+
+    if(!payment){
+
+        alert(
+            "Pilih metode pembayaran terlebih dahulu!"
+        );
+
+        return;
+    }
+
+    alert(
+        "Pembayaran berhasil menggunakan " +
+        payment.value
+    );
+
+    window.location.href =
+`success.html?film=${encodeURIComponent(film)}
+&studio=${encodeURIComponent(studio)}
+&tanggal=${encodeURIComponent(tanggal)}
+&jam=${encodeURIComponent(jam)}
+&kursi=${encodeURIComponent(kursi)}
+&harga=${encodeURIComponent(harga)}`;
+
+});
+
+</script>
+
+</body>
+</html>

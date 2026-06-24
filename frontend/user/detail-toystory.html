@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spider-Man: Brand New Day - CinemaTix</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body{
+            background:#0F172A;
+            color:white;
+        }
+
+        .navbar{
+            background:#1E293B;
+        }
+
+        .navbar-brand{
+            color:#FBBF24 !important;
+            font-weight:bold;
+            font-size:24px;
+        }
+
+        .movie-container{
+            margin-top:50px;
+        }
+
+        .movie-poster{
+            width:100%;
+            border-radius:15px;
+            box-shadow:0 0 20px rgba(0,0,0,.5);
+        }
+
+        .movie-info{
+            background:#1E293B;
+            padding:30px;
+            border-radius:15px;
+        }
+
+        .schedule-btn{
+            margin:5px;
+        }
+
+        .btn-book{
+            background:#FBBF24;
+            color:black;
+            font-weight:bold;
+        }
+
+        .btn-book:hover{
+            background:#f59e0b;
+        }
+
+        footer{
+            background:#1E293B;
+            margin-top:50px;
+            padding:20px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="../index.html">
+            🎬 CinemaTix
+        </a>
+    </div>
+</nav>
+
+<!-- CONTENT -->
+
+<div class="container movie-container">
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <img src="../assets/img/toy_story.jpg"
+                 class="movie-poster"
+                 alt="Movie Poster">
+
+        </div>
+
+        <div class="col-md-8">
+
+            <div class="movie-info">
+
+                <h1>Toy Story 5</h1>
+
+                <hr>
+
+                <p>
+                    <strong>Genre :</strong>
+                    Animation, Family
+                </p>
+
+                <p>
+                    <strong>Durasi :</strong>
+                    110 Menit
+                </p>
+
+                <p>
+                    <strong>Rating :</strong>
+                    ⭐⭐⭐⭐⭐
+                </p>
+
+                <p>
+                    <strong>Studio :</strong>
+                    Studio 3
+                </p>
+
+                <p>
+                    Woody, Buzz Lightyear, Jessie, dan teman-teman lainnya
+                    menghadapi tantangan baru ketika teknologi modern mulai
+                    menggantikan permainan tradisional. Mereka harus menemukan
+                    tempat mereka di dunia yang terus berubah sambil menjaga
+                    ikatan persahabatan yang telah terbentuk selama bertahun-tahun.
+                </p>
+
+                <!-- JADWAL -->
+
+                <h4 class="mt-4">
+                    Jadwal Tayang
+                </h4>
+
+                <div class="mt-3">
+
+                    <button class="btn btn-outline-light schedule-btn"
+                            onclick="pilihJadwal(this,'10:00','Studio 3 ','24 Juni 2026')">
+                        10:00
+                    </button>
+
+                    <button class="btn btn-outline-light schedule-btn"
+                            onclick="pilihJadwal(this,'13:00','Studio 3','24 Juni 2026')">
+                        13:00
+                    </button>
+
+                    <button class="btn btn-outline-light schedule-btn"
+                            onclick="pilihJadwal(this,'16:00','Studio 3','24 Juni 2026')">
+                        16:00
+                    </button>
+
+                    <button class="btn btn-outline-light schedule-btn"
+                            onclick="pilihJadwal(this,'19:00','Studio 3','24 Juni 2026')">
+                        19:00
+                    </button>
+
+                </div>
+
+                <p class="mt-3 text-warning fw-bold">
+                    Jadwal Dipilih :
+                    <span id="jadwalDipilih">
+                        Belum Dipilih
+                    </span>
+                </p>
+
+                <div class="mt-4">
+
+                    <a id="pesanBtn"
+                       href="#"
+                       class="btn btn-book btn-lg disabled">
+                        🎟 Pesan Tiket
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer class="text-center">
+
+    <h5>CinemaTix</h5>
+
+    <p>
+        Sistem Pemesanan Tiket Bioskop Berbasis PostgreSQL
+    </p>
+
+</footer>
+
+<script>
+
+function pilihJadwal(btn,jam,studio,tanggal){
+
+    document.querySelectorAll('.schedule-btn')
+    .forEach(item => {
+
+        item.classList.remove('btn-warning');
+        item.classList.add('btn-outline-light');
+
+    });
+
+    btn.classList.remove('btn-outline-light');
+    btn.classList.add('btn-warning');
+
+    document.getElementById("jadwalDipilih")
+    .innerText = jam;
+
+    const pesanBtn =
+    document.getElementById("pesanBtn");
+
+    pesanBtn.classList.remove("disabled");
+
+    pesanBtn.href =
+`kursi.html?film=${encodeURIComponent('Minions & Monsters')}&jam=${encodeURIComponent(jam)}&studio=${encodeURIComponent(studio)}&tanggal=${encodeURIComponent(tanggal)}`;
+}
+
+</script>
+
+</body>
+</html>
