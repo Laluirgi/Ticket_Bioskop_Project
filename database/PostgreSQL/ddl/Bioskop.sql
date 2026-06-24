@@ -1,7 +1,9 @@
 -- =====================================================
--- DATABASE SISTEM TIKET BIOSKOP
+-- DROP TABLE
 -- =====================================================
 
+DROP TABLE IF EXISTS tb_tiket CASCADE;
+DROP TABLE IF EXISTS tb_detail_pemesanan CASCADE;
 DROP TABLE IF EXISTS tb_pembayaran CASCADE;
 DROP TABLE IF EXISTS tb_tiket CASCADE;
 DROP TABLE IF EXISTS tb_pemesanan CASCADE;
@@ -78,13 +80,16 @@ CREATE TABLE tb_jadwal (
 CREATE TABLE tb_kursi (
     id_kursi SERIAL PRIMARY KEY,
     id_studio INT NOT NULL,
-    nomor_kursi VARCHAR(10) NOT NULL,
-    status_kursi VARCHAR(20) DEFAULT 'TERSEDIA',
+    baris CHAR(1) NOT NULL,
+    nomor INT NOT NULL,
+    status_kursi VARCHAR(20) DEFAULT 'AVAILABLE',
 
     CONSTRAINT fk_kursi_studio
         FOREIGN KEY (id_studio)
         REFERENCES tb_studio(id_studio)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT uq_kursi UNIQUE (id_studio, baris, nomor)
 );
 
 -- =====================================================
@@ -101,6 +106,33 @@ CREATE TABLE tb_pemesanan (
     CONSTRAINT fk_pemesanan_pelanggan
         FOREIGN KEY (id_pelanggan)
         REFERENCES tb_pelanggan(id_pelanggan)
+        ON DELETE CASCADE
+);
+
+-- =====================================================
+-- TABEL DETAIL PEMESANAN
+-- UNTUK MULTI-SEAT BOOKING
+-- =====================================================
+
+CREATE TABLE tb_detail_pemesanan (
+    id_detail SERIAL PRIMARY KEY,
+    id_pemesanan INT NOT NULL,
+    id_jadwal INT NOT NULL,
+    id_kursi INT NOT NULL,
+
+    CONSTRAINT fk_detail_pemesanan
+        FOREIGN KEY (id_pemesanan)
+        REFERENCES tb_pemesanan(id_pemesanan)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_detail_jadwal
+        FOREIGN KEY (id_jadwal)
+        REFERENCES tb_jadwal(id_jadwal)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_detail_kursi
+        FOREIGN KEY (id_kursi)
+        REFERENCES tb_kursi(id_kursi)
         ON DELETE CASCADE
 );
 
@@ -128,24 +160,12 @@ CREATE TABLE tb_pembayaran (
 
 CREATE TABLE tb_tiket (
     id_tiket SERIAL PRIMARY KEY,
-    id_pemesanan INT NOT NULL,
-    id_jadwal INT NOT NULL,
-    id_kursi INT NOT NULL,
+    id_detail INT NOT NULL,
     kode_tiket VARCHAR(50) UNIQUE NOT NULL,
     status_tiket VARCHAR(20) DEFAULT 'AKTIF',
 
-    CONSTRAINT fk_tiket_pemesanan
-        FOREIGN KEY (id_pemesanan)
-        REFERENCES tb_pemesanan(id_pemesanan)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_tiket_jadwal
-        FOREIGN KEY (id_jadwal)
-        REFERENCES tb_jadwal(id_jadwal)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_tiket_kursi
-        FOREIGN KEY (id_kursi)
-        REFERENCES tb_kursi(id_kursi)
+    CONSTRAINT fk_tiket_detail
+        FOREIGN KEY (id_detail)
+        REFERENCES tb_detail_pemesanan(id_detail)
         ON DELETE CASCADE
 );
